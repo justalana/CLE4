@@ -22,13 +22,16 @@ export class UI extends ScreenElement {
                 color: Color.Black
             })
         })
+        const whitebar = new Whitebar(140, 50)
+        this.addChild(whitebar)
+        whitebar.scale = new Vector(1.5, 1.5)
+
         this.addChild(this.scoreText)
-        // this.addChild(new Whitebar())
 
         for (let i = 0; i < 3; i++) {
             const heart = new Heart()
             heart.graphics.use(Resources.Heart.toSprite())
-            heart.pos = new Vector(870 + (i * 40), 50)
+            heart.pos = new Vector(1150 + (i * 40), 50)
             this.addChild(heart)
             this.hearts.push(heart)
         }

@@ -4,17 +4,20 @@ import { UI } from './UI.js'
 
 
 export class Whitebar extends Actor {
+    ui
     constructor(x, y) {
         super({
-            x, y,
+            pos: new Vector(x, y),
             width: Resources.Whitebar.width,
-            height: Resources.Whitebar.height
+            height: Resources.Whitebar.height,
+            // scale: new Vector(a, b)
         })
+
+        this.graphics.use(Resources.Whitebar.toSprite())
     }
 
-    onInitialize() {
-        this.ui = new UI(this, engine)
-        this.addChild(this.ui)
+    onInitialize(engine) {
+        console.log('yippie')
     }
 }
 

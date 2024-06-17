@@ -1,5 +1,6 @@
 import { Scene, Label, Font, FontUnit, Vector, Color, Keys, Timer } from "excalibur"
 import { Resources } from './resources.js'
+import { Whitebar } from "./textbar.js"
 
 
 export class Intro extends Scene {
@@ -15,6 +16,7 @@ export class Intro extends Scene {
             })
         })
         engine.add(this.title)
+        engine.add(new Whitebar(30, 50))
 
         this.start = new Label({
             text: 'Press SPACE to start  ( :',
