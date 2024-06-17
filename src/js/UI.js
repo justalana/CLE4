@@ -19,11 +19,11 @@ export class UI extends ScreenElement {
                 family: 'impact',
                 size: 40,
                 unit: FontUnit.Px,
-                color: Color.White
+                color: Color.Black
             })
         })
         this.addChild(this.scoreText)
-        this.addChild(new Whitebar())
+        // this.addChild(new Whitebar())
 
         for (let i = 0; i < 3; i++) {
             const heart = new Heart()

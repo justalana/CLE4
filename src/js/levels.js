@@ -9,6 +9,9 @@ import { Wrench } from './tools.js'
 import { Pickaxe } from './tools.js'
 import { Pufferfish } from './pufferfish.js'
 import { Toolbox } from "./toolbox.js"
+import { BGCruise } from "./background.js"
+import { BGTaxi } from "./background.js"
+
 
 export class Level1 extends Scene {
     onInitialize(engine) {
@@ -18,6 +21,7 @@ export class Level1 extends Scene {
         this.tools = []
         this.pufferfishes = []
 
+        this.createBackground()
         this.createToolbox()
 
         this.timer = new Timer({
@@ -75,6 +79,11 @@ export class Level1 extends Scene {
         })
         this.add(this.timer)
         this.timer.start()
+    }
+
+    createBackground() {
+        const bgCruise = new BGTaxi()
+        this.add(bgCruise)
     }
 
     createToolbox() {
