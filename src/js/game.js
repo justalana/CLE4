@@ -1,26 +1,35 @@
 import '../css/style.css'
-import { Actor, Engine, Vector, DisplayMode } from "excalibur"
-import { Resources, ResourceLoader } from './resources.js'
+import { Engine, DisplayMode, SolverStrategy, Vector } from "excalibur"
+import { ResourceLoader } from './resources.js'
+import { Intro } from './scenes.js'
+import { Level1 } from './levels.js'
 
 export class Game extends Engine {
-
     constructor() {
-        super({ 
+        super({
             width: 1280,
             height: 720,
             maxFps: 60,
-            displayMode: DisplayMode.FitScreen
-         })
+            displayMode: DisplayMode.FitScreen,
+            suppressPlayButton: true,
+            physics: {
+                solver: SolverStrategy.Realistic,
+                gravity: new Vector(0, 300),
+            }
+        })
+
+        this.score = 0
+
         this.start(ResourceLoader).then(() => this.startGame())
     }
 
     startGame() {
-        console.log("start de game!")
-        const fish = new Actor()
-        fish.graphics.use(Resources.Fish.toSprite())
-        fish.pos = new Vector(400, 300)
-        fish.vel = new Vector(-10,0)
-        this.add(fish)
+        const intro = new Intro()
+        this.add('intro', intro)
+        this.goToScene('intro')
+
+        const level1 = new Level1()
+        this.add('level1', level1)
     }
 }
 
