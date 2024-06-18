@@ -19,7 +19,7 @@ export class UI extends ScreenElement {
         this.addChild(whitebar)
         whitebar.scale = new Vector(1.5, 3.5)
 
-        const scoreText = new Label({
+        this.scoreText = new Label({
             text: `Score: ${engine.score}`,
             pos: new Vector(70, 30),
             font: new Font({
@@ -29,7 +29,7 @@ export class UI extends ScreenElement {
                 color: Color.Black
             })
         })
-        scoreText.on('pointerdown', () => {
+        this.scoreText.on('pointerdown', () => {
             this.engine.goToScene('levelEnd')
         })
 
@@ -53,7 +53,7 @@ export class UI extends ScreenElement {
         this.engine.add(this.timer)
         this.timer.start()
 
-        this.addChild(scoreText)
+        this.addChild(this.scoreText)
 
         for (let i = 0; i < 3; i++) {
             const heart = new Heart()
@@ -74,8 +74,8 @@ export class UI extends ScreenElement {
         }
     }
 
-    updateScore(score) {
-        scoreText.text = `Score: ${score}`
+    updateScore(score, scoreText) {
+        this.scoreText.text = `Score: ${score}`
     }
 
     reduceHealth(engine) {
