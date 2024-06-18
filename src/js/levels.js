@@ -9,8 +9,7 @@ import { Wrench } from './tools.js'
 import { Pickaxe } from './tools.js'
 import { Pufferfish } from './pufferfish.js'
 import { Toolbox } from "./toolbox.js"
-import { BGCruise } from "./background.js"
-import { BGTaxi } from "./background.js"
+import { BG } from "./background.js"
 
 
 export class Level1 extends Scene {
@@ -82,8 +81,9 @@ export class Level1 extends Scene {
     }
 
     createBackground() {
-        const bgCruise = new BGTaxi()
-        this.add(bgCruise)
+        const bgHole = new BG()
+        bgHole.graphics.use(Resources.BGHole.toSprite())
+        this.add(bgHole)
     }
 
     createToolbox() {
@@ -138,9 +138,11 @@ export class Level1 extends Scene {
             this.engine.score++
             this.ui.updateScore(this.engine.score)
         }
+    }
 
-        if (this.engine.score === 20) {
-            this.engine.goToScene('gameOver')
+    levelEnd() {
+        if (timeLeft === 0) {
+            this.engine.goToScene('levelEnd')
         }
     }
 }

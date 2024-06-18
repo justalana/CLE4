@@ -1,18 +1,25 @@
-import { ScreenElement, Label, Color, Font, FontUnit, Vector } from 'excalibur'
+import { ScreenElement, Label, Color, Font, FontUnit, Vector, Timer } from 'excalibur'
 import { Resources } from './resources.js'
 import { Heart } from "./hearts.js"
-import { Whitebar } from "./textbar.js"
-import { Greenbar } from "./textbar.js"
+import { Textbar } from "./textbar.js"
+
+let timeLeft = 30
 
 export class UI extends ScreenElement {
     constructor(game, engine) {
         super()
         this.engine = engine
         this.hearts = []
+
     }
 
     onInitialize(engine) {
-        this.scoreText = new Label({
+        const whitebar = new Textbar(140, 100)
+        whitebar.graphics.use(Resources.Whitebar.toSprite())
+        this.addChild(whitebar)
+        whitebar.scale = new Vector(1.5, 3.5)
+
+        const scoreText = new Label({
             text: `Score: ${engine.score}`,
             pos: new Vector(70, 30),
             font: new Font({
@@ -22,11 +29,31 @@ export class UI extends ScreenElement {
                 color: Color.Black
             })
         })
-        const whitebar = new Whitebar(140, 50)
-        this.addChild(whitebar)
-        whitebar.scale = new Vector(1.5, 1.5)
+        scoreText.on('pointerdown', () => {
+            this.engine.goToScene('levelEnd')
+        })
 
-        this.addChild(this.scoreText)
+        this.counterTime = new Label({
+            text: `Time left: ${timeLeft}`,
+            pos: new Vector(40, 120),
+            font: new Font({
+                family: 'impact',
+                size: 40,
+                unit: FontUnit.Px,
+                color: Color.Black
+            })
+        })
+        this.engine.add(this.counterTime)
+
+        this.timer = new Timer({
+            fcn: () => this.counter(),
+            interval: 1000,
+            repeats: true
+        })
+        this.engine.add(this.timer)
+        this.timer.start()
+
+        this.addChild(scoreText)
 
         for (let i = 0; i < 3; i++) {
             const heart = new Heart()
@@ -36,11 +63,19 @@ export class UI extends ScreenElement {
             this.hearts.push(heart)
         }
 
-        engine.on('pufferfish-exit', () => this.reduceHealth(engine))
+        engine.on('pufferfish-exit', () => this.reduceHealth(engine, timeLeft))
+    }
+
+    counter() {
+        timeLeft--
+        this.counterTime.text = `Time left: ${timeLeft}`
+        if (timeLeft === 0) {
+            this.engine.goToScene('levelEnd')
+        }
     }
 
     updateScore(score) {
-        this.scoreText.text = `Score: ${score}`
+        scoreText.text = `Score: ${score}`
     }
 
     reduceHealth(engine) {
@@ -50,7 +85,8 @@ export class UI extends ScreenElement {
         }
 
         if (this.hearts.length === 0) {
-            this.engine.goToScene('gameOver')
+            this.engine.goToScene('levelEnd')
         }
     }
+
 }
