@@ -8,7 +8,6 @@ export class BG extends Actor {
     }
 
     onInitialize(engine) {
-        // this.graphics.use(Resources.BGCruise.toSprite())
         this.pos = new Vector(640, 360)
     }
 }

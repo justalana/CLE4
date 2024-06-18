@@ -11,17 +11,8 @@ import { Pufferfish } from './pufferfish.js'
 import { Toolbox } from "./toolbox.js"
 import { BG } from "./background.js"
 
+
 export class Level1 extends Scene {
-
-    tools = [
-        "hammer",
-        "pickaxe",
-        "saw",
-        "sawblade",
-        "wrench",
-        "drill"
-    ];
-
     onInitialize(engine) {
         this.ui = new UI(this, engine)
         this.add(this.ui)
@@ -33,7 +24,7 @@ export class Level1 extends Scene {
         this.createToolbox()
 
         this.timer = new Timer({
-            fcn: () => this.createTool(),
+            fcn: () => this.createFish(),
             interval: 5000,
             repeats: true
         })
@@ -90,9 +81,9 @@ export class Level1 extends Scene {
     }
 
     createBackground() {
-        const bgCruise = new BG()
-        bgCruise.graphics.use(Resources.BGHome.toSprite())
-        this.add(bgCruise)
+        const bgHole = new BG()
+        bgHole.graphics.use(Resources.BGHole.toSprite())
+        this.add(bgHole)
     }
 
     createToolbox() {
@@ -100,8 +91,38 @@ export class Level1 extends Scene {
         this.add(toolbox)
     }
 
+    createHammer() {
+        const hammer = new Hammer()
+        this.add(hammer)
+        this.tools.push(hammer)
+    }
+
+    createWrench() {
+        const wrench = new Wrench()
+        this.add(wrench)
+        this.tools.push(wrench)
+    }
+
+    createPickaxe() {
+        const pickaxe = new Pickaxe()
+        this.add(pickaxe)
+        this.tools.push(pickaxe)
+    }
+
+    createSaw() {
+        const saw = new Saw()
+        this.add(saw)
+        this.tools.push(saw)
+    }
+
+    createSawblade() {
+        const sawblade = new Sawblade()
+        this.add(sawblade)
+        this.tools.push(sawblade)
+    }
+
     createDrill() {
-        const drill = new Tool()
+        const drill = new Drill()
         this.add(drill)
         this.tools.push(drill)
     }
@@ -117,9 +138,11 @@ export class Level1 extends Scene {
             this.engine.score++
             this.ui.updateScore(this.engine.score)
         }
+    }
 
-        if (this.engine.score === 20) {
-            this.engine.goToScene('gameOver')
+    levelEnd() {
+        if (timeLeft === 0) {
+            this.engine.goToScene('levelEnd')
         }
     }
 }
