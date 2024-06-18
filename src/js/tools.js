@@ -14,6 +14,7 @@ export class Hammer extends Actor {
         this.collider.set(Shape.Box(10, 40))
 
         this.on('exitviewport', () => this.kill())
+        this.on('exitviewport', () => Resources.WaterSplash.play(0.2))
     }
 
     onInitialize(engine) {
@@ -29,6 +30,7 @@ export class Hammer extends Actor {
     hitSomething(event, engine) {
         if (event.other instanceof Toolbox) {
             this.engine.currentScene.updateScore();
+            Resources.Pipe.play(0.1)
             this.kill()
         }
     }
@@ -46,6 +48,7 @@ export class Wrench extends Actor {
         this.collider.set(Shape.Box(10, 40))
 
         this.on('exitviewport', () => this.kill())
+        this.on('exitviewport', () => Resources.WaterSplash.play(0.2))
     }
 
     onInitialize(engine) {
@@ -62,6 +65,7 @@ export class Wrench extends Actor {
     hitSomething(event) {
         if (event.other instanceof Toolbox) {
             this.engine.currentScene.updateScore();
+            Resources.Pipe.play(0.1)
             this.kill()
         }
     }
@@ -80,6 +84,7 @@ export class Saw extends Actor {
         this.collider.set(Shape.Box(10, 40))
 
         this.on('exitviewport', () => this.kill())
+        this.on('exitviewport', () => Resources.WaterSplash.play(0.2))
     }
 
     onInitialize(engine) {
@@ -95,6 +100,7 @@ export class Saw extends Actor {
     hitSomething(event) {
         if (event.other instanceof Toolbox) {
             this.engine.currentScene.updateScore();
+            Resources.Pipe.play(0.1)
             this.kill()
         }
     }
@@ -112,6 +118,7 @@ export class Sawblade extends Actor {
         this.collider.set(Shape.Box(10, 40))
 
         this.on('exitviewport', () => this.kill())
+        this.on('exitviewport', () => Resources.WaterSplash.play(0.2))
     }
 
     onInitialize(engine) {
@@ -127,6 +134,7 @@ export class Sawblade extends Actor {
     hitSomething(event) {
         if (event.other instanceof Toolbox) {
             this.engine.currentScene.updateScore();
+            Resources.Pipe.play(0.1)
             this.kill()
         }
     }
@@ -144,6 +152,7 @@ export class Pickaxe extends Actor {
         this.collider.set(Shape.Box(10, 40))
 
         this.on('exitviewport', () => this.kill())
+        this.on('exitviewport', () => Resources.WaterSplash.play(0.2))
     }
 
     onInitialize(engine) {
@@ -159,6 +168,7 @@ export class Pickaxe extends Actor {
     hitSomething(event) {
         if (event.other instanceof Toolbox) {
             this.engine.currentScene.updateScore();
+            Resources.Pipe.play(0.1)
             this.kill()
         }
     }
@@ -176,6 +186,7 @@ export class Drill extends Actor {
         this.collider.set(Shape.Box(10, 40))
 
         this.on('exitviewport', () => this.kill())
+        this.on('exitviewport', () => Resources.WaterSplash.play(0.2))
     }
 
     onInitialize(engine) {
@@ -191,6 +202,7 @@ export class Drill extends Actor {
     hitSomething(event) {
         if (event.other instanceof Toolbox) {
             this.engine.currentScene.updateScore();
+            Resources.Pipe.play(0.1)
             this.kill()
         }
     }
