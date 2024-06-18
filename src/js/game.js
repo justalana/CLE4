@@ -1,7 +1,7 @@
 import '../css/style.css'
 import { Engine, DisplayMode, SolverStrategy, Vector } from "excalibur"
 import { ResourceLoader } from './resources.js'
-import { Intro } from './scenes.js'
+import { Home } from './scenes.js'
 import { Level1 } from './levels.js'
 
 export class Game extends Engine {
@@ -24,9 +24,9 @@ export class Game extends Engine {
     }
 
     startGame() {
-        const intro = new Intro()
-        this.add('intro', intro)
-        this.goToScene('intro')
+        const home = new Home()
+        this.add('home', home)
+        this.goToScene('home')
 
         const level1 = new Level1()
         this.add('level1', level1)

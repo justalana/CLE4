@@ -2,7 +2,7 @@ import { Actor, Keys, Timer, Vector, CollisionType, Shape, Engine } from "excali
 import { Resources } from './resources'
 import { Toolbox } from "./toolbox"
 
-export class Hammer extends Actor {
+export class Tool extends Actor {
 
     constructor(x, y) {
         super({

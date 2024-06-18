@@ -9,11 +9,19 @@ import { Wrench } from './tools.js'
 import { Pickaxe } from './tools.js'
 import { Pufferfish } from './pufferfish.js'
 import { Toolbox } from "./toolbox.js"
-import { BGCruise } from "./background.js"
-import { BGTaxi } from "./background.js"
-
+import { BG } from "./background.js"
 
 export class Level1 extends Scene {
+
+    tools = [
+        "hammer",
+        "pickaxe",
+        "saw",
+        "sawblade",
+        "wrench",
+        "drill"
+    ];
+
     onInitialize(engine) {
         this.ui = new UI(this, engine)
         this.add(this.ui)
@@ -25,7 +33,7 @@ export class Level1 extends Scene {
         this.createToolbox()
 
         this.timer = new Timer({
-            fcn: () => this.createFish(),
+            fcn: () => this.createTool(),
             interval: 5000,
             repeats: true
         })
@@ -82,7 +90,8 @@ export class Level1 extends Scene {
     }
 
     createBackground() {
-        const bgCruise = new BGTaxi()
+        const bgCruise = new BG()
+        bgCruise.graphics.use(Resources.BGHome.toSprite())
         this.add(bgCruise)
     }
 
@@ -91,38 +100,8 @@ export class Level1 extends Scene {
         this.add(toolbox)
     }
 
-    createHammer() {
-        const hammer = new Hammer()
-        this.add(hammer)
-        this.tools.push(hammer)
-    }
-
-    createWrench() {
-        const wrench = new Wrench()
-        this.add(wrench)
-        this.tools.push(wrench)
-    }
-
-    createPickaxe() {
-        const pickaxe = new Pickaxe()
-        this.add(pickaxe)
-        this.tools.push(pickaxe)
-    }
-
-    createSaw() {
-        const saw = new Saw()
-        this.add(saw)
-        this.tools.push(saw)
-    }
-
-    createSawblade() {
-        const sawblade = new Sawblade()
-        this.add(sawblade)
-        this.tools.push(sawblade)
-    }
-
     createDrill() {
-        const drill = new Drill()
+        const drill = new Tool()
         this.add(drill)
         this.tools.push(drill)
     }

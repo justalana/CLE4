@@ -4,6 +4,8 @@ import { ImageSource, Sound, Resource, Loader } from 'excalibur'
 const Resources = {
     BGTaxi: new ImageSource('images/BG-watertaxi.JPG'),
     BGCruise: new ImageSource('images/BG-cruise.JPG'),
+    BGHome: new ImageSource('images/BG-hole.JPG'),
+
     Drill: new ImageSource('images/drill.png'),
     Hammer: new ImageSource('images/hammer.png'),
     Pickaxe: new ImageSource('images/pickaxe.png'),

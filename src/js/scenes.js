@@ -1,12 +1,19 @@
 import { Scene, Label, Font, FontUnit, Vector, Color, Keys, Timer } from "excalibur"
 import { Resources } from './resources.js'
 import { Whitebar } from "./textbar.js"
+import { Greenbar } from "./textbar.js"
+import { BG } from "./background.js"
 
-
-export class Intro extends Scene {
+export class Home extends Scene {
     onInitialize(engine) {
+        // createBackground()
+
+        const whitebar = new Whitebar(140, 50)
+        this.add(whitebar)
+        whitebar.scale = new Vector(3.5, 3.5)
+
         this.title = new Label({
-            text: `Sea's Of Salvage`,
+            text: `Seas Of Salvage`,
             pos: new Vector(400, 30),
             font: new Font({
                 family: 'impact',
@@ -16,7 +23,6 @@ export class Intro extends Scene {
             })
         })
         engine.add(this.title)
-        engine.add(new Whitebar(30, 50))
 
         this.start = new Label({
             text: 'Press SPACE to start  ( :',
@@ -38,4 +44,12 @@ export class Intro extends Scene {
             engine.goToScene('level1')
         }
     }
+
+    // createBackground() {
+    //     const background = new BG()
+    //     if (background) {
+    //         BG.graphics.use(Resources.BGTaxi.toSprite())
+    //     }
+    //     engine.add(background)
+    // }
 }
