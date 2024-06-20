@@ -12,7 +12,7 @@ import { Toolbox } from "./toolbox.js"
 import { BG } from "./background.js"
 
 
-export class Level1 extends Scene {
+export class Level2 extends Scene {
     onInitialize(engine) {
         this.ui = new UI(this, engine)
         this.add(this.ui)
@@ -25,7 +25,7 @@ export class Level1 extends Scene {
 
         this.timer = new Timer({
             fcn: () => this.createFish(),
-            interval: 3000,
+            interval: 1000,
             repeats: true
         })
         this.add(this.timer)

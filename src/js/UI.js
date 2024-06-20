@@ -10,7 +10,6 @@ export class UI extends ScreenElement {
         super()
         this.engine = engine
         this.hearts = []
-
     }
 
     onInitialize(engine) {
@@ -85,7 +84,7 @@ export class UI extends ScreenElement {
         }
 
         if (this.hearts.length === 0) {
-            this.engine.goToScene('levelEnd')
+            this.engine.goToScene('levelFail')
         }
     }
 

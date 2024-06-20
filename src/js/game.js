@@ -3,8 +3,11 @@ import { Engine, DisplayMode, SolverStrategy, Vector } from "excalibur"
 import { ResourceLoader } from './resources.js'
 import { Home } from './scenes.js'
 import { Level1 } from './levels.js'
+import { Level2 } from './level2.js'
+import { Level3 } from './level3.js'
+import { Story } from './scenes.js'
 import { LevelEnd } from './scenes.js'
-
+import { LevelFail } from './levelFail.js'
 
 export class Game extends Engine {
     constructor() {
@@ -35,6 +38,18 @@ export class Game extends Engine {
 
         const levelEnd = new LevelEnd()
         this.add('levelEnd', levelEnd)
+
+        const levelFail = new LevelFail()
+        this.add('levelFail', levelFail)
+
+        const level2 = new Level2()
+        this.add('level2', level2)
+
+        const level3 = new Level3()
+        this.add('level3', level3)
+
+        const story = new Story()
+        this.add('story', story)
     }
 }
 
