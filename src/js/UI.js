@@ -3,14 +3,14 @@ import { Resources } from './resources.js'
 import { Heart } from "./hearts.js"
 import { Textbar } from "./textbar.js"
 
-let timeLeft = 30
 
 export class UI extends ScreenElement {
     constructor(game, engine) {
         super()
         this.engine = engine
         this.hearts = []
-
+        this.timeLeft = 6
+        this.score = 0
     }
 
     onInitialize(engine) {
@@ -20,7 +20,7 @@ export class UI extends ScreenElement {
         whitebar.scale = new Vector(1.5, 3.5)
 
         this.scoreText = new Label({
-            text: `Score: ${engine.score}`,
+            text: `Score: ${this.score}`,
             pos: new Vector(70, 30),
             font: new Font({
                 family: 'impact',
@@ -29,12 +29,9 @@ export class UI extends ScreenElement {
                 color: Color.Black
             })
         })
-        this.scoreText.on('pointerdown', () => {
-            this.engine.goToScene('levelEnd')
-        })
 
         this.counterTime = new Label({
-            text: `Time left: ${timeLeft}`,
+            text: `Time left: ${this.timeLeft}`,
             pos: new Vector(40, 120),
             font: new Font({
                 family: 'impact',
@@ -43,14 +40,18 @@ export class UI extends ScreenElement {
                 color: Color.Black
             })
         })
-        this.engine.add(this.counterTime)
+        this.addChild(this.counterTime)
+
+        const self = this
 
         this.timer = new Timer({
-            fcn: () => this.counter(),
+            fcn: function () {
+                self.counter(engine)
+            },
             interval: 1000,
             repeats: true
         })
-        this.engine.add(this.timer)
+        engine.add(this.timer)
         this.timer.start()
 
         this.addChild(this.scoreText)
@@ -63,19 +64,31 @@ export class UI extends ScreenElement {
             this.hearts.push(heart)
         }
 
-        engine.on('pufferfish-exit', () => this.reduceHealth(engine, timeLeft))
+        engine.on('pufferfish-exit', () => this.reduceHealth(engine))
     }
 
-    counter() {
-        timeLeft--
-        this.counterTime.text = `Time left: ${timeLeft}`
-        if (timeLeft === 0) {
-            this.engine.goToScene('levelEnd')
+    onActivate(ctx,) {
+        this.timeLeft = 6
+        this.score = 0
+        this.updateTimer()
+        this.resetHearts()
+        this.updateScore()
+    }
+
+    counter(engine) {
+        this.timeLeft--
+        this.updateTimer()
+        if (this.timeLeft === 0) {
+            engine.goToScene('levelEnd')
         }
     }
 
+    updateTimer() {
+        this.counterTime.text = `Time left: ${this.timeLeft}`
+    }
+
     updateScore(score, scoreText) {
-        this.scoreText.text = `Score: ${score}`
+        this.scoreText.text = `Score: ${this.score}`
     }
 
     reduceHealth(engine) {
@@ -85,8 +98,20 @@ export class UI extends ScreenElement {
         }
 
         if (this.hearts.length === 0) {
-            this.engine.goToScene('levelEnd')
+            engine.goToScene('levelFail')
         }
     }
 
+    resetHearts() {
+        this.hearts.forEach(heart => heart.kill())
+        this.hearts = []
+
+        for (let i = 0; i < 3; i++) {
+            const heart = new Heart()
+            heart.graphics.use(Resources.Heart.toSprite())
+            heart.pos = new Vector(1150 + (i * 40), 50)
+            this.addChild(heart)
+            this.hearts.push(heart)
+        }
+    }
 }

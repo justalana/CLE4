@@ -13,19 +13,23 @@ import { BG } from "./background.js"
 
 
 export class Level1 extends Scene {
-    onInitialize(engine) {
-        this.ui = new UI(this, engine)
-        this.add(this.ui)
+    constructor() {
+        super()
+        this.score = 0
+        this.timer = 0
+    }
 
+    onInitialize(engine) {
         this.tools = []
         this.pufferfishes = []
 
         this.createBackground()
         this.createToolbox()
+        this.createUi()
 
         this.timer = new Timer({
             fcn: () => this.createFish(),
-            interval: 5000,
+            interval: 1000,
             repeats: true
         })
         this.add(this.timer)
@@ -80,6 +84,21 @@ export class Level1 extends Scene {
         this.timer.start()
     }
 
+    onActivate(ctx) {
+        this.score = 0
+        this.timer = 0
+
+        // this.ui.updateScore(this.score)
+        this.ui.onActivate()
+    }
+
+    onPreUpdate(engine, delta) {
+        // Update timer
+        this.timer += delta
+
+        // Game logic, such as checking for game over, collisions, etc.
+    }
+
     createBackground() {
         const bgHole = new BG()
         bgHole.graphics.use(Resources.BGHole.toSprite())
@@ -131,6 +150,11 @@ export class Level1 extends Scene {
         const pufferfish = new Pufferfish()
         this.add(pufferfish)
         this.pufferfishes.push(pufferfish)
+    }
+
+    createUi(engine) {
+        this.ui = new UI(this, engine)
+        this.add(this.ui)
     }
 
     updateScore() {
