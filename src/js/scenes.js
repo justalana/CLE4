@@ -87,7 +87,7 @@ export class LevelEnd extends Scene {
             })
             engine.add(this.nextLevel)
             this.nextLevel.on('pointerdown', () => {
-                engine.goToScene('level2')  // Assuming you have a second level
+                engine.goToScene('level2')
             })
         }
 
@@ -120,6 +120,9 @@ export class LevelEnd extends Scene {
                 })
             })
             engine.add(this.retry)
+            this.retry.on('pointerdown', () => {
+                engine.goToScene('level1')
+            })
         }
 
         const greenbarScore = new Textbar(390, 520)
@@ -132,9 +135,21 @@ export class LevelEnd extends Scene {
         this.add(greenbarHome)
         greenbarHome.scale = new Vector(1.7, 1.5)
 
-        this.finalScore = new Label({
-            text: `Your final score is ${this.engine.score}`,
-            pos: new Vector(240, 500),
+        // this.finalScore = new Label({
+        //     text: `Your final score is ${this.score}`,
+        //     pos: new Vector(240, 500),
+        //     font: new Font({
+        //         family: 'impact',
+        //         size: 40,
+        //         unit: FontUnit.Px,
+        //         color: Color.Black
+        //     })
+        // })
+        // engine.add(this.finalScore)
+
+        this.home = new Label({
+            text: `Return to Boat`,
+            pos: new Vector(240, 370),
             font: new Font({
                 family: 'impact',
                 size: 40,
@@ -155,6 +170,14 @@ export class LevelEnd extends Scene {
             })
         })
         engine.add(this.home)
+
+        this.home.on('pointerdown', () => {
+            engine.goToScene('home')
+        })
+    }
+
+    onActivate(engine) {
+        this.engine.score = 0
     }
 
     onPreUpdate() {
