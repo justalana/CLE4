@@ -14,6 +14,10 @@ import { BG } from "./background.js"
 
 export class Level1 extends Scene {
     onInitialize(engine) {
+
+    }
+
+    onActivate(engine) {
         this.ui = new UI(this, engine)
         this.add(this.ui)
 
@@ -25,7 +29,7 @@ export class Level1 extends Scene {
 
         this.timer = new Timer({
             fcn: () => this.createFish(),
-            interval: 5000,
+            interval: 1000,
             repeats: true
         })
         this.add(this.timer)
@@ -144,5 +148,14 @@ export class Level1 extends Scene {
         if (timeLeft === 0) {
             this.engine.goToScene('levelEnd')
         }
+    }
+
+    onDeactivate(ctx) {
+        console.log('onDe');
+        // this.tools = []
+        // this.pufferfishes = []
+        // console.log('??');
+
+        this.actors.forEach(actor => actor.kill());
     }
 }

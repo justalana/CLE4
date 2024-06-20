@@ -4,6 +4,7 @@ import { ResourceLoader } from './resources.js'
 import { Home } from './scenes.js'
 import { Level1 } from './levels.js'
 import { LevelEnd } from './scenes.js'
+import { LevelFail } from './levelfail.js'
 
 
 export class Game extends Engine {
@@ -35,6 +36,9 @@ export class Game extends Engine {
 
         const levelEnd = new LevelEnd()
         this.add('levelEnd', levelEnd)
+
+        const levelFail = new LevelFail()
+        this.add('levelFail', levelFail)
     }
 }
 

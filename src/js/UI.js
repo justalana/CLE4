@@ -3,14 +3,13 @@ import { Resources } from './resources.js'
 import { Heart } from "./hearts.js"
 import { Textbar } from "./textbar.js"
 
-let timeLeft = 30
+let timeLeft = 6
 
 export class UI extends ScreenElement {
     constructor(game, engine) {
         super()
         this.engine = engine
         this.hearts = []
-
     }
 
     onInitialize(engine) {
@@ -85,7 +84,7 @@ export class UI extends ScreenElement {
         }
 
         if (this.hearts.length === 0) {
-            this.engine.goToScene('levelEnd')
+            this.engine.goToScene('levelFail')
         }
     }
 
