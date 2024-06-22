@@ -19,7 +19,8 @@ const Resources = {
     Whitebar: new ImageSource('images/whitebar.png'),
     Greenbar: new ImageSource('images/greenbar.png'),
     WaterSplash: new Sound('Sounds/splash2.wav'),
-    Pipe: new Sound('Sounds/pipe.mp3')
+    Pipe: new Sound('Sounds/pipe.mp3'),
+    A: new ImageSource('images/A.png')
 }
 
 const ResourceLoader = new Loader()

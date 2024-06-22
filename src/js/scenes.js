@@ -1,7 +1,8 @@
-import { Scene, Label, Font, FontUnit, Vector, Color, Keys, Timer } from "excalibur"
+import { Scene, Label, Font, FontUnit, Vector, Color, Input } from "excalibur"
 import { Resources } from './resources.js'
 import { Textbar } from "./textbar.js"
 import { BG } from "./background.js"
+import { A } from "./A.js"
 
 export class Home extends Scene {
     onInitialize(engine) {
@@ -40,8 +41,19 @@ export class Home extends Scene {
         })
         engine.add(this.start)
 
-        this.start.on('pointerdown', () => {
-            engine.goToScene('story')
+        const a = new A(520, 450)
+        a.graphics.use(Resources.A.toSprite())
+        this.add(a)
+        a.scale = new Vector(0.07, 0.07)
+
+        this.on('postupdate', () => {
+            const gamepad = this.input.gamepads.at(0)
+
+            if (gamepad) {
+                if (gamepad.wasButtonPressed(Input.Buttons.Face1)) {
+                    engine.goToScene('story')
+                }
+            }
         })
     }
 
@@ -50,6 +62,100 @@ export class Home extends Scene {
         // if (background) {
         //     BG.graphics.use(Resources.BGTaxi.toSprite())
         // }
+        background.graphics.use(Resources.BGTaxi.toSprite())
+        engine.add(background)
+    }
+}
+
+export class Story extends Scene {
+    onInitialize(engine) {
+        this.createBackground(engine)
+        const whitebar = new Textbar(1000, 120)
+        whitebar.graphics.use(Resources.Whitebar.toSprite())
+        this.add(whitebar)
+        whitebar.scale = new Vector(2.5, 2.5)
+
+        this.text1 = new Label({
+            text: `The Holland America line used to be one of the \ngreatest boat travel lines there was.\n\n But everything changed when my boat wasn't \n good enough anymore...`,
+            pos: new Vector(800, 80),
+            font: new Font({
+                family: 'Poppins',
+                size: 20,
+                unit: FontUnit.Px,
+                color: Color.Black
+            })
+        })
+        engine.add(this.text1)
+
+        const whitebar2 = new Textbar(1000, 300)
+        whitebar2.graphics.use(Resources.Whitebar.toSprite())
+        this.add(whitebar2)
+        whitebar2.scale = new Vector(2.5, 2.5)
+
+        this.text2 = new Label({
+            text: `That's why I must upgrade my boat!\n I must fix my boat so that the line can \nbe restored again.\n But I can't seem to find my tools..`,
+            pos: new Vector(800, 260),
+            font: new Font({
+                family: 'Poppins',
+                size: 20,
+                unit: FontUnit.Px,
+                color: Color.Black
+            })
+        })
+        engine.add(this.text2)
+
+        const whitebar3 = new Textbar(1000, 480)
+        whitebar3.graphics.use(Resources.Whitebar.toSprite())
+        this.add(whitebar3)
+        whitebar3.scale = new Vector(2.5, 2.5)
+
+        this.text3 = new Label({
+            text: `If you can gather my tools from the leaking deck, \n I'll make sure the boat is ready to go.\n Use your arrows to catch the tools.\n Try to catch 40 tools before the timer runs out.\n P.S. Don't catch the fish. Good luck!`,
+            pos: new Vector(800, 420),
+            font: new Font({
+                family: 'Poppins',
+                size: 20,
+                unit: FontUnit.Px,
+                color: Color.Black
+            })
+        })
+        engine.add(this.text3)
+
+        const greenbarStart = new Textbar(1070, 620)
+        greenbarStart.graphics.use(Resources.Greenbar.toSprite())
+        this.add(greenbarStart)
+        greenbarStart.scale = new Vector(1.6, 1.5)
+
+        this.start = new Label({
+            text: `Gather tools`,
+            pos: new Vector(970, 600),
+            font: new Font({
+                family: 'Impact',
+                size: 40,
+                unit: FontUnit.Px,
+                color: Color.Black
+            })
+        })
+        engine.add(this.start)
+
+        const a = new A(1200, 650)
+        a.graphics.use(Resources.A.toSprite())
+        this.add(a)
+        a.scale = new Vector(0.04, 0.04)
+
+        this.on('postupdate', () => {
+            const gamepad = this.input.gamepads.at(0)
+
+            if (gamepad) {
+                if (gamepad.wasButtonPressed(Input.Buttons.Face1)) {
+                    engine.goToScene('level1')
+                }
+            }
+        })
+    }
+
+    createBackground(engine) {
+        const background = new BG()
         background.graphics.use(Resources.BGTaxi.toSprite())
         engine.add(background)
     }
@@ -92,6 +198,8 @@ export class LevelEnd extends Scene {
                 })
             })
             engine.add(this.nextLevel)
+
+
             this.nextLevel.on('pointerdown', () => {
                 engine.goToScene('level2')
             })
@@ -202,89 +310,6 @@ export class LevelEnd extends Scene {
         } else {
             background.graphics.use(Resources.BGFixed.toSprite())
         }
-        engine.add(background)
-    }
-}
-
-export class Story extends Scene {
-    onInitialize(engine) {
-        this.createBackground(engine)
-        const whitebar = new Textbar(1000, 120)
-        whitebar.graphics.use(Resources.Whitebar.toSprite())
-        this.add(whitebar)
-        whitebar.scale = new Vector(2.5, 2.5)
-
-        this.text1 = new Label({
-            text: `The Holland America line used to be one of the \ngreatest boat travel lines there was.\n\n But everything changed when my boat wasn't \n good enough anymore...`,
-            pos: new Vector(800, 80),
-            font: new Font({
-                family: 'Poppins',
-                size: 20,
-                unit: FontUnit.Px,
-                color: Color.Black
-            })
-        })
-        engine.add(this.text1)
-
-        const whitebar2 = new Textbar(1000, 300)
-        whitebar2.graphics.use(Resources.Whitebar.toSprite())
-        this.add(whitebar2)
-        whitebar2.scale = new Vector(2.5, 2.5)
-
-        this.text2 = new Label({
-            text: `That's why I must upgrade my boat!\n I must fix my boat so that the line can \nbe restored again.\n But i can't seem to find my tools..`,
-            pos: new Vector(800, 260),
-            font: new Font({
-                family: 'Poppins',
-                size: 20,
-                unit: FontUnit.Px,
-                color: Color.Black
-            })
-        })
-        engine.add(this.text2)
-
-        const whitebar3 = new Textbar(1000, 480)
-        whitebar3.graphics.use(Resources.Whitebar.toSprite())
-        this.add(whitebar3)
-        whitebar3.scale = new Vector(2.5, 2.5)
-
-        this.text3 = new Label({
-            text: `If you can gather my tools from the leaking deck, \n i'll make sure the boat is ready to go.\n Use your arrows to catch the tools.\n Try to catch 40 tools before the timer runs out.\n P.S. Don't catch the fish. Good luck!`,
-            pos: new Vector(800, 420),
-            font: new Font({
-                family: 'Poppins',
-                size: 20,
-                unit: FontUnit.Px,
-                color: Color.Black
-            })
-        })
-        engine.add(this.text3)
-
-        const greenbarStart = new Textbar(1070, 620)
-        greenbarStart.graphics.use(Resources.Greenbar.toSprite())
-        this.add(greenbarStart)
-        greenbarStart.scale = new Vector(1.6, 1.5)
-
-        this.start = new Label({
-            text: `Gather tools`,
-            pos: new Vector(970, 600),
-            font: new Font({
-                family: 'Impact',
-                size: 40,
-                unit: FontUnit.Px,
-                color: Color.Black
-            })
-        })
-        engine.add(this.start)
-
-        this.start.on('pointerdown', () => {
-            this.engine.goToScene('level1')
-        })
-    }
-
-    createBackground(engine) {
-        const background = new BG()
-        background.graphics.use(Resources.BGTaxi.toSprite())
         engine.add(background)
     }
 }

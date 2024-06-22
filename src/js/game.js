@@ -1,5 +1,5 @@
 import '../css/style.css'
-import { Engine, DisplayMode, SolverStrategy, Vector } from "excalibur"
+import { Engine, DisplayMode, SolverStrategy, Vector, Input, Actor, Color } from "excalibur"
 import { ResourceLoader } from './resources.js'
 import { Home } from './scenes.js'
 import { Level1 } from './levels.js'
@@ -26,6 +26,26 @@ export class Game extends Engine {
         this.score = 0
 
         this.start(ResourceLoader).then(() => this.startGame())
+
+        this.input.gamepads.enabled = true
+
+        this.input.gamepads.on('connect', (gp) => {
+            console.log('Gamepad connected:', gp)
+        })
+
+        this.input.gamepads.on('disconnect', (gp) => {
+            console.log('Gamepad disconnected:', gp)
+        })
+
+        // this.on('postupdate', () => {
+        //     const gamepad = this.input.gamepads.at(0)
+
+        //     if (gamepad) {
+        //         if (gamepad.wasButtonPressed(Input.Buttons.Face1)) {
+        //             // console.log('A button pressed')
+        //         }
+        //     }
+        // })
     }
 
     startGame() {
@@ -52,5 +72,4 @@ export class Game extends Engine {
         this.add('story', story)
     }
 }
-
 new Game()
