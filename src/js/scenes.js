@@ -107,7 +107,7 @@ export class Story extends Scene {
         whitebar3.scale = new Vector(2.5, 2.5)
 
         this.text3 = new Label({
-            text: `If you can gather my tools from the leaking deck, \n I'll make sure the boat is ready to go.\n Use your arrows to catch the tools.\n Try to catch 40 tools before the timer runs out.\n P.S. Don't catch the fish. Good luck!`,
+            text: `If you can gather my tools from the leaking deck, \n I'll make sure the boat is ready to go.\n Use your arrows to catch the tools.\n Try to catch 50 tools before the timer runs out.\n P.S. Don't catch the fish. Good luck!`,
             pos: new Vector(800, 420),
             font: new Font({
                 family: 'Poppins',
@@ -166,7 +166,7 @@ export class LevelEnd extends Scene {
         greenbar.scale = new Vector(3.5, 2.5)
         this.add(greenbar)
 
-        if (this.engine.score >= 39) {
+        if (this.engine.score >= 49) {
             this.title = new Label({
                 text: `Well done lad`,
                 pos: new Vector(400, 70),
@@ -230,7 +230,7 @@ export class LevelEnd extends Scene {
             })
         }
 
-        if (this.engine.score <= 38) {
+        if (this.engine.score <= 48) {
             this.title = new Label({
                 text: `Yer almost had it`,
                 pos: new Vector(400, 70),
