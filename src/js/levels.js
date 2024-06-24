@@ -1,4 +1,4 @@
-import { Scene, Label, Font, FontUnit, Vector, Color, Keys, Timer } from "excalibur"
+import { Scene, Timer } from "excalibur"
 import { Resources } from './resources.js'
 import { UI } from './UI.js'
 import { Hammer } from './tools.js'
@@ -13,23 +13,19 @@ import { BG } from "./background.js"
 
 
 export class Level1 extends Scene {
-    constructor() {
-        super()
-        this.score = 0
-        this.timer = 0
-    }
-
     onInitialize(engine) {
+        this.ui = new UI(this, engine)
+        this.add(this.ui)
+
         this.tools = []
         this.pufferfishes = []
 
         this.createBackground()
         this.createToolbox()
-        this.createUi()
 
         this.timer = new Timer({
             fcn: () => this.createFish(),
-            interval: 1000,
+            interval: 3000,
             repeats: true
         })
         this.add(this.timer)
@@ -82,21 +78,6 @@ export class Level1 extends Scene {
         })
         this.add(this.timer)
         this.timer.start()
-    }
-
-    onActivate(ctx) {
-        this.score = 0
-        this.timer = 0
-
-        // this.ui.updateScore(this.score)
-        this.ui.onActivate()
-    }
-
-    onPreUpdate(engine, delta) {
-        // Update timer
-        this.timer += delta
-
-        // Game logic, such as checking for game over, collisions, etc.
     }
 
     createBackground() {
@@ -152,11 +133,6 @@ export class Level1 extends Scene {
         this.pufferfishes.push(pufferfish)
     }
 
-    createUi(engine) {
-        this.ui = new UI(this, engine)
-        this.add(this.ui)
-    }
-
     updateScore() {
         if (this.ui) {
             this.engine.score++
@@ -168,14 +144,5 @@ export class Level1 extends Scene {
         if (timeLeft === 0) {
             this.engine.goToScene('levelEnd')
         }
-    }
-
-    onDeactivate(ctx) {
-        console.log('onDe');
-        // this.tools = []
-        // this.pufferfishes = []
-        // console.log('??');
-
-        this.actors.forEach(actor => actor.kill());
     }
 }
