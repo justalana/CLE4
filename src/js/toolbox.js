@@ -1,4 +1,4 @@
-import { Actor, Keys, Timer, Vector, CollisionType, clamp } from "excalibur"
+import { Actor, Keys, Timer, Vector, CollisionType, clamp, Input } from "excalibur"
 import { Resources } from './resources'
 
 export class Toolbox extends Actor {
@@ -20,16 +20,23 @@ export class Toolbox extends Actor {
     }
 
     onPreUpdate(engine) {
-        let xspeed = 0;
-        let yspeed = 0;
+        let xspeed = 0
+        let yspeed = 0
 
-        if (engine.input.keyboard.isHeld(Keys.Right)) {
-            xspeed = 400
-        }
+        engine.input.gamepads.enabled = true
 
-        if (engine.input.keyboard.isHeld(Keys.Left)) {
-            xspeed = -400
-        }
+        this.on('postupdate', () => {
+            const gamepad = engine.input.gamepads.at(0)
+
+            if (gamepad) {
+                if (gamepad.isButtonHeld(Input.Buttons.DpadLeft)) {
+                    this.vel = new Vector(-400, 0)
+                }
+                if (gamepad.isButtonHeld(Input.Buttons.DpadRight)) {
+                    this.vel = new Vector(400, 0)
+                }
+            }
+        })
 
         this.vel = new Vector(xspeed, yspeed);
         this.pos.x = clamp(this.pos.x, 200, engine.drawWidth - 200);
