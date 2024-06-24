@@ -7,6 +7,7 @@ const Resources = {
     BGHole: new ImageSource('images/BG-hole.JPG'),
     BGFixed: new ImageSource('images/BG-fix.PNG'),
     BGFish: new ImageSource('images/BG-vissen.PNG'),
+    BGIntro: new ImageSource('images/BG-intro.PNG'),
     Drill: new ImageSource('images/drill.png'),
     Hammer: new ImageSource('images/hammer.png'),
     Pickaxe: new ImageSource('images/pickaxe.png'),

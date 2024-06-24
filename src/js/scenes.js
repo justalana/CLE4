@@ -153,7 +153,7 @@ export class Story extends Scene {
 
     createBackground(engine) {
         const background = new BG()
-        background.graphics.use(Resources.BGTaxi.toSprite())
+        background.graphics.use(Resources.BGIntro.toSprite())
         engine.add(background)
     }
 }
@@ -185,7 +185,7 @@ export class LevelEnd extends Scene {
             greenbarStart.scale = new Vector(2.8, 2.5)
 
             this.start = new Label({
-                text: 'Start your journey',
+                text: 'Return to boat',
                 pos: new Vector(60, 350),
                 font: new Font({
                     family: 'impact',
@@ -200,6 +200,34 @@ export class LevelEnd extends Scene {
             a.graphics.use(Resources.A.toSprite())
             this.add(a)
             a.scale = new Vector(0.07, 0.07)
+
+            const greenbarScore = new Textbar(290, 620)
+            greenbarScore.graphics.use(Resources.Whitebar.toSprite())
+            this.add(greenbarScore)
+            greenbarScore.scale = new Vector(2.3, 1.5)
+
+            this.finalScore = new Label({
+                text: `Your final score is ${this.engine.score}`,
+                pos: new Vector(130, 600),
+                font: new Font({
+                    family: 'impact',
+                    size: 40,
+                    unit: FontUnit.Px,
+                    color: Color.Black
+                })
+            })
+            engine.add(this.finalScore)
+
+            this.on('postupdate', () => {
+                const gamepad = this.input.gamepads.at(0)
+
+                if (gamepad) {
+                    if (gamepad.wasButtonPressed(Input.Buttons.Face1)) {
+                        console.log('pressed');
+                        engine.goToScene('end')
+                    }
+                }
+            })
         }
 
         if (this.engine.score <= 38) {
@@ -264,21 +292,11 @@ export class End extends Scene {
             })
         })
         engine.add(this.title)
-
-        this.on('postupdate', () => {
-            const gamepad = this.input.gamepads.at(0)
-
-            if (gamepad) {
-                if (gamepad.wasButtonPressed(Input.Buttons.Face1)) {
-                    engine.goToScene('story')
-                }
-            }
-        })
     }
 
     createBackground(engine) {
         const background = new BG()
-        background.graphics.use(Resources.BGTaxi.toSprite())
+        background.graphics.use(Resources.BGCruise.toSprite())
         engine.add(background)
     }
 }

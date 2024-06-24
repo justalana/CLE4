@@ -23,7 +23,7 @@ export class Game extends Engine {
             }
         })
 
-        this.score = 40
+        this.score = 0
 
         this.start(ResourceLoader).then(() => this.startGame())
 
@@ -41,7 +41,7 @@ export class Game extends Engine {
     startGame() {
         const home = new Home()
         this.add('home', home)
-        // this.goToScene('home')
+        this.goToScene('home')
 
         const level1 = new Level1()
         this.add('level1', level1)
@@ -57,8 +57,6 @@ export class Game extends Engine {
 
         const end = new End()
         this.add('end', end)
-        this.goToScene('end')
-
     }
 }
 new Game()
