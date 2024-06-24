@@ -38,15 +38,6 @@ export class Toolbox extends Actor {
             }
         })
 
-        // if (engine.input.keyboard.isHeld(Keys.Right)) {
-        //     xspeed = 400
-        //     console.log('right');
-        // }
-
-        // if (engine.input.keyboard.isHeld(Keys.Left)) {
-        //     xspeed = -400
-        // }
-
         this.vel = new Vector(xspeed, yspeed);
         this.pos.x = clamp(this.pos.x, 200, engine.drawWidth - 200);
     }

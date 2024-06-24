@@ -1,4 +1,4 @@
-import { Scene, Label, Font, FontUnit, Vector, Color, Keys, Timer } from "excalibur"
+import { Scene, Timer } from "excalibur"
 import { Resources } from './resources.js'
 import { UI } from './UI.js'
 import { Hammer } from './tools.js'

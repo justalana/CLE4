@@ -59,9 +59,6 @@ export class Home extends Scene {
 
     createBackground(engine) {
         const background = new BG()
-        // if (background) {
-        //     BG.graphics.use(Resources.BGTaxi.toSprite())
-        // }
         background.graphics.use(Resources.BGTaxi.toSprite())
         engine.add(background)
     }
@@ -182,42 +179,27 @@ export class LevelEnd extends Scene {
             })
             engine.add(this.title)
 
-            // const greenbarNext = new Textbar(350, 260)
-            // greenbarNext.graphics.use(Resources.Greenbar.toSprite())
-            // greenbarNext.scale = new Vector(3.5, 2.5)
-            // this.add(greenbarNext)
+            const greenbarStart = new Textbar(280, 385)
+            greenbarStart.graphics.use(Resources.Greenbar.toSprite())
+            this.add(greenbarStart)
+            greenbarStart.scale = new Vector(2.8, 2.5)
 
-            this.nextLevel = new Label({
-                text: `Go to next level`,
-                pos: new Vector(240, 240),
+            this.start = new Label({
+                text: 'Start your journey',
+                pos: new Vector(60, 350),
                 font: new Font({
                     family: 'impact',
-                    size: 40,
+                    size: 60,
                     unit: FontUnit.Px,
                     color: Color.Black
                 })
             })
-            engine.add(this.nextLevel)
+            engine.add(this.start)
 
-
-            this.nextLevel.on('pointerdown', () => {
-                engine.goToScene('level2')
-            })
-
-            this.nextLevel3 = new Label({
-                text: `Go to next level`,
-                pos: new Vector(240, 540),
-                font: new Font({
-                    family: 'impact',
-                    size: 40,
-                    unit: FontUnit.Px,
-                    color: Color.Black
-                })
-            })
-            engine.add(this.nextLevel3)
-            this.nextLevel3.on('pointerdown', () => {
-                engine.goToScene('level3')
-            })
+            const a = new A(520, 450)
+            a.graphics.use(Resources.A.toSprite())
+            this.add(a)
+            a.scale = new Vector(0.07, 0.07)
         }
 
         if (this.engine.score <= 38) {
@@ -233,36 +215,10 @@ export class LevelEnd extends Scene {
             })
             engine.add(this.title)
 
-            // const greenbarRetry = new Textbar(350, 260)
-            // greenbarRetry.graphics.use(Resources.Greenbar.toSprite())
-            // this.add(greenbarRetry)
-            // greenbarRetry.scale = new Vector(1.7, 1.5)
-
-            //     this.retry = new Label({
-            //         text: `Try again`,
-            //         pos: new Vector(240, 240),
-            //         font: new Font({
-            //             family: 'impact',
-            //             size: 40,
-            //             unit: FontUnit.Px,
-            //             color: Color.Black
-            //         })
-            //     })
-            //     engine.add(this.retry)
-            //     this.retry.on('pointerdown', () => {
-            //         engine.goToScene('level1')
-            //     })
-            // }
-
             const greenbarScore = new Textbar(390, 520)
             greenbarScore.graphics.use(Resources.Whitebar.toSprite())
             this.add(greenbarScore)
             greenbarScore.scale = new Vector(2.3, 1.5)
-
-            // const greenbarHome = new Textbar(350, 390)
-            // greenbarHome.graphics.use(Resources.Greenbar.toSprite())
-            // this.add(greenbarHome)
-            // greenbarHome.scale = new Vector(1.7, 1.5)
 
             this.finalScore = new Label({
                 text: `Your final score is ${this.engine.score}`,
@@ -275,41 +231,54 @@ export class LevelEnd extends Scene {
                 })
             })
             engine.add(this.finalScore)
-
-            // this.home = new Label({
-            //     text: `Return to Boat`,
-            //     pos: new Vector(240, 370),
-            //     font: new Font({
-            //         family: 'impact',
-            //         size: 40,
-            //         unit: FontUnit.Px,
-            //         color: Color.Black
-            //     })
-            // })
-            // engine.add(this.home)
-
-            // this.home.on('pointerdown', () => {
-            //     engine.goToScene('home')
-            // })
         }
     }
 
-    // onPreUpdate() {
-    //     this.home.on('pointerdown', () => {
-    //         this.engine.goToScene('home')
-    //     })
-    // }
-
     createBackground(engine) {
         const background = new BG()
-        // if (background) {
-        //     BG.graphics.use(Resources.BGTaxi.toSprite())
-        // }
         if (this.engine.score <= 38) {
             background.graphics.use(Resources.BGFish.toSprite())
         } else {
             background.graphics.use(Resources.BGFixed.toSprite())
         }
+        engine.add(background)
+    }
+}
+
+export class End extends Scene {
+    onInitialize(engine) {
+        this.createBackground(engine)
+        const whitebar = new Textbar(650, 120)
+        whitebar.graphics.use(Resources.Whitebar.toSprite())
+        this.add(whitebar)
+        whitebar.scale = new Vector(3.5, 3.5)
+
+        this.title = new Label({
+            text: `Boat restored`,
+            pos: new Vector(400, 80),
+            font: new Font({
+                family: 'impact',
+                size: 80,
+                unit: FontUnit.Px,
+                color: Color.Black
+            })
+        })
+        engine.add(this.title)
+
+        this.on('postupdate', () => {
+            const gamepad = this.input.gamepads.at(0)
+
+            if (gamepad) {
+                if (gamepad.wasButtonPressed(Input.Buttons.Face1)) {
+                    engine.goToScene('story')
+                }
+            }
+        })
+    }
+
+    createBackground(engine) {
+        const background = new BG()
+        background.graphics.use(Resources.BGTaxi.toSprite())
         engine.add(background)
     }
 }

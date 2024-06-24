@@ -3,7 +3,7 @@ import { Resources } from './resources.js'
 import { Heart } from "./hearts.js"
 import { Textbar } from "./textbar.js"
 
-let timeLeft = 30
+let timeLeft = 3
 
 export class UI extends ScreenElement {
     constructor(game, engine) {
