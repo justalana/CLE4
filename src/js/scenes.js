@@ -166,7 +166,7 @@ export class LevelEnd extends Scene {
         greenbar.scale = new Vector(3.5, 2.5)
         this.add(greenbar)
 
-        if (this.engine.score >= 49) {
+        if (this.engine.score >= 50) {
             this.title = new Label({
                 text: `Well done lad`,
                 pos: new Vector(400, 70),
@@ -230,7 +230,7 @@ export class LevelEnd extends Scene {
             })
         }
 
-        if (this.engine.score <= 48) {
+        if (this.engine.score <= 49) {
             this.title = new Label({
                 text: `Yer almost had it`,
                 pos: new Vector(400, 70),
@@ -264,7 +264,7 @@ export class LevelEnd extends Scene {
 
     createBackground(engine) {
         const background = new BG()
-        if (this.engine.score <= 38) {
+        if (this.engine.score <= 49) {
             background.graphics.use(Resources.BGFish.toSprite())
         } else {
             background.graphics.use(Resources.BGFixed.toSprite())
